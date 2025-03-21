@@ -28,9 +28,9 @@ export class WorldScene extends Phaser.Scene {
   }
 
   create() {
-    this.#buildMap();
     this.#character = new Character(this);
     this.#character.createCharacter();
+    this.#buildMap();
     this.#cursorKeys = this.input.keyboard.createCursorKeys();
   }
 
@@ -77,6 +77,8 @@ export class WorldScene extends Phaser.Scene {
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 17, 18, 22, 25, 26, 30, 33, 34, 35, 36,
       37, 38,
     ]);
+
+    this.physics.add.collider(this.#character.characterGameObject, groundLayer);
 
     const camera = this.cameras.main;
     camera.setBounds(0, 0, this.mapWidth, this.mapHeight);

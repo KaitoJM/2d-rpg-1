@@ -5,13 +5,21 @@ import { SCENE_KEYS } from './scenes/scene-keys.js';
 
 const game = new Phaser.Game({
   type: Phaser.CANVAS,
-  pixelArt: false,
+  pixelArt: true,
+  roundPixels: true,
   scale: {
     parent: 'game-container',
     width: 256,
     height: 224,
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
+  },
+  physics: {
+    default: 'arcade', // ✅ Ensure physics is enabled!
+    arcade: {
+      gravity: { y: 0, x: 0 },
+      debug: false,
+    },
   },
   scene: [PreloadScene],
   backgroundColor: '#FFFFFF',

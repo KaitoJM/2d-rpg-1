@@ -15,14 +15,11 @@ const playerAnimations = Object.freeze({
 export class Character {
   /** @type {Phaser.Scene} */
   #scene;
-  /** @type {number} */
-  #characterPositionX;
-  /** @type {number} */
-  #characterPositionY;
   /** @type {Phaser.GameObjects.Sprite} */
-  #characterGameObject;
+  /** @type {Phaser.Physics.Arcade.Sprite} */
+  characterGameObject;
   /** @type {import("../../common/direction.js").Direction} direction */
-  $currentDirection;
+  currentDirection;
 
   /**
    *
@@ -30,45 +27,56 @@ export class Character {
    */
   constructor(scene) {
     this.#scene = scene;
-    this.#characterPositionX = this.#scene.cameras.main.width / 2;
-    this.#characterPositionY = this.#scene.cameras.main.height / 2;
   }
 
   createCharacter() {
     this.#initAnimations();
-
-    this.#characterGameObject = this.#scene.add
+    this.characterGameObject = this.#scene.physics.add
       .sprite(
-        this.#characterPositionX,
-        this.#characterPositionY,
+        this.#scene.cameras.main.width / 2,
+        this.#scene.cameras.main.height / 2,
         CHARACTER_ASSET_KEYS.MC_SHEET
       )
       .setOrigin(0.5);
+
+    // this.characterGameObject.setCollideWorldBounds(true);
+    this.#scene.cameras.main.startFollow(this.characterGameObject);
+    this.characterGameObject.setDepth(10);
   }
 
   /** @param {import("../../common/direction.js").Direction} direction */
   handleMovement(direction) {
-    console.log(direction);
+    const speed = 100;
+    const body = this.characterGameObject;
+
+    body.setVelocity(0);
+
     switch (direction) {
       case DIRECTION.LEFT:
         this.#walkLeft();
+        body.setVelocityX(-speed);
         break;
       case DIRECTION.RIGHT:
         this.#walkRight();
+        body.setVelocityX(speed);
         break;
       case DIRECTION.UP:
         this.#walkUp();
+        body.setVelocityY(-speed);
         break;
       case DIRECTION.DOWN:
         this.#walkDown();
+        body.setVelocityY(speed);
         break;
       case DIRECTION.NONE:
-        this.#characterGameObject.anims.stop();
+        this.characterGameObject.anims.stop();
         this.#characterLastDirectionDisplay();
         break;
       default:
         exhaustiveGuard(direction);
     }
+
+    body.body.velocity.normalize().scale(speed);
   }
 
   #initAnimations() {
@@ -138,62 +146,52 @@ export class Character {
   }
 
   #walkLeft() {
-    this.#characterPositionX -= step_no;
     this.#moveCharacter();
 
-    this.#characterGameObject.anims.play(playerAnimations.RUN_LEFT, true);
+    this.characterGameObject.anims.play(playerAnimations.RUN_LEFT, true);
     this.currentDirection = DIRECTION.LEFT;
   }
 
   #walkRight() {
-    this.#characterPositionX += step_no;
     this.#moveCharacter();
 
-    this.#characterGameObject.anims.play(playerAnimations.RUN_RIGHT, true);
+    this.characterGameObject.anims.play(playerAnimations.RUN_RIGHT, true);
     this.currentDirection = DIRECTION.RIGHT;
   }
 
   #walkUp() {
     this.#moveCharacter();
-    this.#characterPositionY -= step_no;
-    this.#characterGameObject.anims.play(playerAnimations.RUN_TOP, true);
+    this.characterGameObject.anims.play(playerAnimations.RUN_TOP, true);
     this.currentDirection = DIRECTION.UP;
   }
 
   #walkDown() {
     this.#moveCharacter();
-    this.#characterGameObject.anims.play(playerAnimations.RUN_FRONT, true);
-    this.#characterPositionY += step_no;
+    this.characterGameObject.anims.play(playerAnimations.RUN_FRONT, true);
     this.currentDirection = DIRECTION.DOWN;
   }
 
   #moveCharacter() {
     const camera = this.#scene.cameras.main;
-
-    camera.centerOn(this.#characterPositionX, this.#characterPositionY);
-
-    this.#characterGameObject.setPosition(
-      this.#characterPositionX,
-      this.#characterPositionY
-    );
+    camera.startFollow(this.characterGameObject);
   }
 
   #characterLastDirectionDisplay() {
     switch (this.currentDirection) {
       case DIRECTION.DOWN:
-        this.#characterGameObject.setFrame(0);
+        this.characterGameObject.setFrame(0);
         break;
 
       case DIRECTION.UP:
-        this.#characterGameObject.setFrame(1);
+        this.characterGameObject.setFrame(1);
         break;
 
       case DIRECTION.RIGHT:
-        this.#characterGameObject.setFrame(2);
+        this.characterGameObject.setFrame(2);
         break;
 
       case DIRECTION.LEFT:
-        this.#characterGameObject.setFrame(3);
+        this.characterGameObject.setFrame(3);
         break;
 
       default:
