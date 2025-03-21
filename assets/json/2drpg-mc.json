@@ -1,0 +1,93 @@
+{ "frames": {
+   "2drpg-mc 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 128, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 32 },
+    "sourceSize": { "w": 128, "h": 32 },
+    "duration": 100
+   },
+   "2drpg-mc 1.aseprite": {
+    "frame": { "x": 0, "y": 32, "w": 128, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 32 },
+    "sourceSize": { "w": 128, "h": 32 },
+    "duration": 100
+   },
+   "2drpg-mc 2.aseprite": {
+    "frame": { "x": 0, "y": 64, "w": 128, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 32 },
+    "sourceSize": { "w": 128, "h": 32 },
+    "duration": 100
+   },
+   "2drpg-mc 3.aseprite": {
+    "frame": { "x": 0, "y": 96, "w": 128, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 32 },
+    "sourceSize": { "w": 128, "h": 32 },
+    "duration": 100
+   },
+   "2drpg-mc 4.aseprite": {
+    "frame": { "x": 0, "y": 128, "w": 128, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 32 },
+    "sourceSize": { "w": 128, "h": 32 },
+    "duration": 100
+   },
+   "2drpg-mc 5.aseprite": {
+    "frame": { "x": 0, "y": 160, "w": 128, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 32 },
+    "sourceSize": { "w": 128, "h": 32 },
+    "duration": 100
+   },
+   "2drpg-mc 6.aseprite": {
+    "frame": { "x": 0, "y": 192, "w": 128, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 32 },
+    "sourceSize": { "w": 128, "h": 32 },
+    "duration": 100
+   },
+   "2drpg-mc 7.aseprite": {
+    "frame": { "x": 0, "y": 224, "w": 128, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 32 },
+    "sourceSize": { "w": 128, "h": 32 },
+    "duration": 100
+   },
+   "2drpg-mc 8.aseprite": {
+    "frame": { "x": 0, "y": 256, "w": 128, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 32 },
+    "sourceSize": { "w": 128, "h": 32 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.13-arm64",
+  "image": "2drpg-mc.png",
+  "format": "RGBA8888",
+  "size": { "w": 128, "h": 288 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Flattened Left", "opacity": 255, "blendMode": "normal" },
+   { "name": "Flattened Right", "opacity": 255, "blendMode": "normal" },
+   { "name": "Flattened Back", "opacity": 255, "blendMode": "normal" },
+   { "name": "Flattened Front", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
