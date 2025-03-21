@@ -41,6 +41,8 @@ export class Character {
 
     // this.characterGameObject.setCollideWorldBounds(true);
     this.#scene.cameras.main.startFollow(this.characterGameObject);
+    this.characterGameObject.body.setSize(20, 8); // A small rectangle for the feet
+    this.characterGameObject.body.setOffset(6, 24); // Move it toward the bottom of the sprite
     this.characterGameObject.setDepth(10);
   }
 
