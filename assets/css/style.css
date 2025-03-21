@@ -1,3 +1,20 @@
 html body {
-  background-color: beige;
+  background-color: white;
+  padding: 0px;
+  margin: 0px;
+}
+
+#game-container {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+#game-container canvas {
+  border: 5px solid #000000;
+  margin: auto;
+  display: block;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: grey;
 }

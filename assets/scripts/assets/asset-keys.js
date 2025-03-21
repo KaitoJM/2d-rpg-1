@@ -14,3 +14,7 @@ export const SCENE_TILESET_ASSET_KEYS = Object.freeze({
 export const SCENE_MAP_ASSET_KEYS = Object.freeze({
   JM_HOUSE_MAP: 'JM_HOUSE_MAP',
 });
+
+export const SCENE_OBJECT_TILESET_ASSET_KEYS = Object.freeze({
+  INDOOR_FURNITURE: 'INDOOR_FURNITURE',
+});

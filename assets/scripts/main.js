@@ -13,7 +13,7 @@ const game = new Phaser.Game({
     width: 256,
     height: 224,
     mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
+    // autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   physics: {
     default: 'arcade', // ✅ Ensure physics is enabled!

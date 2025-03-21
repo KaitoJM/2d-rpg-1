@@ -2,6 +2,7 @@ import {
   CHARACTER_ASSET_KEYS,
   SCENE_BG_ASSET_KEYS,
   SCENE_MAP_ASSET_KEYS,
+  SCENE_OBJECT_TILESET_ASSET_KEYS,
   SCENE_TILESET_ASSET_KEYS,
 } from '../assets/asset-keys.js';
 import Phaser from '../lib/phaser.js';
@@ -36,6 +37,16 @@ export class PreloadScene extends Phaser.Scene {
     this.load.image(
       SCENE_TILESET_ASSET_KEYS.CEMENT_HOUSE_TILESET,
       `${imagePath}/maps/houses/cement-house-indoor.png`
+    );
+
+    //load objects
+    this.load.spritesheet(
+      SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE,
+      `${imagePath}/objects/indoor-forniture.png`,
+      {
+        frameWidth: 32,
+        frameHeight: 32,
+      }
     );
   }
 

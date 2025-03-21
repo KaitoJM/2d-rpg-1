@@ -47,14 +47,25 @@ export class BaseWalkableScene extends Phaser.Scene {
    * @param {string} TILE_SET
    * @param {string} TILE_SET_KEY
    * @param {number[]} COLLISION
+   * @param {number[]=} EXCLUDE_COLLISION
    */
-  buildMap(MAP_KEY, TILE_SET, TILE_SET_KEY, COLLISION) {
+  buildMap(
+    MAP_KEY,
+    TILE_SET,
+    TILE_SET_KEY,
+    COLLISION,
+    EXCLUDE_COLLISION = null
+  ) {
     const map = this.make.tilemap({ key: MAP_KEY });
     const tileset = map.addTilesetImage(TILE_SET, TILE_SET_KEY);
 
     const groundLayer = map.createLayer('GroundLayer', tileset, 0, 0);
 
     groundLayer.setCollision(COLLISION);
+
+    if (Array.isArray(EXCLUDE_COLLISION) && EXCLUDE_COLLISION.length > 0) {
+      groundLayer.setCollisionByExclusion(EXCLUDE_COLLISION);
+    }
 
     this.physics.add.collider(this.character.characterGameObject, groundLayer);
 
