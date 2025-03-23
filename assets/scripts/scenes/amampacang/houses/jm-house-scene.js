@@ -143,7 +143,11 @@ export class JMHouseScene extends BaseWalkableScene {
       this.character.characterGameObject,
       this.#doorCR,
       () => {
-        console.log('collide door CR');
+        this.scene.start(SCENE_KEYS.JM_HOUSE_ROOMCR_SCENE, {
+          x: 75,
+          y: 70,
+          facing: DIRECTION.RIGHT,
+        });
       }
     );
   }

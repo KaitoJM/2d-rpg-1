@@ -42,6 +42,10 @@ export class PreloadScene extends Phaser.Scene {
       SCENE_MAP_ASSET_KEYS.JM_HOUSE_ROOM2_MAP,
       `${jsonPath}/maps/houses/jm-house-room2-tilemap.json`
     );
+    this.load.tilemapTiledJSON(
+      SCENE_MAP_ASSET_KEYS.JM_HOUSE_ROOMCR_MAP,
+      `${jsonPath}/maps/houses/jm-house-roomCR-tilemap.json`
+    );
     this.load.image(
       SCENE_TILESET_ASSET_KEYS.CEMENT_HOUSE_TILESET,
       `${imagePath}/maps/houses/cement-house-indoor.png`
