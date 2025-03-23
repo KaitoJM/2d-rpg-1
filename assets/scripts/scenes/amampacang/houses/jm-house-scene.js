@@ -30,8 +30,9 @@ export class JMHouseScene extends BaseWalkableScene {
     super(SCENE_KEYS.JM_HOUSE_SCENE, 320, 352);
   }
 
-  create() {
-    super.create();
+  create(data) {
+    const { x = null, y = null } = data || {};
+    super.create(x, y);
 
     this.buildMap(
       SCENE_MAP_ASSET_KEYS.JM_HOUSE_MAP,
@@ -112,7 +113,7 @@ export class JMHouseScene extends BaseWalkableScene {
       this.character.characterGameObject,
       this.#doorRoom2,
       () => {
-        console.log('collide door room 2');
+        this.scene.start(SCENE_KEYS.JM_HOUSE_ROOM2_SCENE);
       }
     );
     this.physics.add.collider(

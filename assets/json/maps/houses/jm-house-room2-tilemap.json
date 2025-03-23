@@ -1,0 +1,40 @@
+{
+  "height": 9,
+  "width": 7,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "version": 1.4,
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "tilesets": [
+    {
+      "columns": 8,
+      "image": "../images/cement-house-indoor.png",
+      "imageheight": 224,
+      "imagewidth": 256,
+      "margin": 0,
+      "name": "cement-house-indoor",
+      "spacing": 0,
+      "tilecount": 56,
+      "tileheight": 32,
+      "tilewidth": 32,
+      "firstgid": 1
+    }
+  ],
+  "layers": [
+    {
+      "type": "tilelayer",
+      "name": "GroundLayer",
+      "width": 9,
+      "height": 7,
+      "visible": true,
+      "opacity": 1,
+      "data": [
+        19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 2, 3, 3, 3, 3, 3, 6, 19, 19, 18,
+        13, 13, 13, 13, 13, 14, 19, 19, 10, 13, 13, 13, 13, 13, 14, 19, 19, 10,
+        13, 13, 13, 13, 13, 30, 19, 19, 34, 37, 37, 37, 37, 37, 38, 19, 19, 19,
+        19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19
+      ]
+    }
+  ]
+}

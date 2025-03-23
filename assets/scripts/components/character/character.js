@@ -29,14 +29,20 @@ export class Character {
     this.#scene = scene;
   }
 
-  createCharacter() {
+  /**
+   *
+   * @param {number=} x
+   * @param {number=} y
+   */
+  createCharacter(x = null, y = null) {
+    if (x == null && y == null) {
+      x = this.#scene.cameras.main.width / 2;
+      y = this.#scene.cameras.main.height / 2;
+    }
+
     this.#initAnimations();
     this.characterGameObject = this.#scene.physics.add
-      .sprite(
-        this.#scene.cameras.main.width / 2,
-        this.#scene.cameras.main.height / 2,
-        CHARACTER_ASSET_KEYS.MC_SHEET
-      )
+      .sprite(x, y, CHARACTER_ASSET_KEYS.MC_SHEET)
       .setOrigin(0.5);
 
     // this.characterGameObject.setCollideWorldBounds(true);

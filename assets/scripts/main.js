@@ -3,6 +3,7 @@ import { WorldScene } from './scenes/world-scene.js';
 import { PreloadScene } from './scenes/preload-scene.js';
 import { SCENE_KEYS } from './scenes/scene-keys.js';
 import { JMHouseScene } from './scenes/amampacang/houses/jm-house-scene.js';
+import { JMHouseRoom2Scene } from './scenes/amampacang/houses/jm-house-room2-scene.js';
 
 const game = new Phaser.Game({
   type: Phaser.CANVAS,
@@ -28,3 +29,4 @@ const game = new Phaser.Game({
 
 game.scene.add(SCENE_KEYS.WORLD_SCENE, WorldScene);
 game.scene.add(SCENE_KEYS.JM_HOUSE_SCENE, JMHouseScene);
+game.scene.add(SCENE_KEYS.JM_HOUSE_ROOM2_SCENE, JMHouseRoom2Scene);

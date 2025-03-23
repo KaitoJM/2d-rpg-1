@@ -19,9 +19,14 @@ export class BaseWalkableScene extends Phaser.Scene {
     this.#mapHeight = mapHeight;
   }
 
-  create() {
+  /**
+   *
+   * @param {number=} characterPositionX
+   * @param {number=} characterPositionY
+   */
+  create(characterPositionX = null, characterPositionY = null) {
     this.character = new Character(this);
-    this.character.createCharacter();
+    this.character.createCharacter(characterPositionX, characterPositionY);
     this.#cursorKeys = this.input.keyboard.createCursorKeys();
   }
 
