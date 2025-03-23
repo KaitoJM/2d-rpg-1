@@ -7,12 +7,12 @@ import { SCENE_KEYS } from './../../scene-keys.js';
 import { BaseWalkableScene } from '../../base-walkable-scene.js';
 import { DIRECTION } from '../../../common/direction.js';
 
-export class JMHouseRoom2Scene extends BaseWalkableScene {
+export class JMHouseRoom1Scene extends BaseWalkableScene {
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #doorOut;
 
   constructor() {
-    super(SCENE_KEYS.JM_HOUSE_ROOM2_SCENE, 288, 224);
+    super(SCENE_KEYS.JM_HOUSE_ROOM1_SCENE, 288, 256);
   }
 
   create(data) {
@@ -20,7 +20,7 @@ export class JMHouseRoom2Scene extends BaseWalkableScene {
     super.create(x, y, facing);
 
     this.buildMap(
-      SCENE_MAP_ASSET_KEYS.JM_HOUSE_ROOM2_MAP,
+      SCENE_MAP_ASSET_KEYS.JM_HOUSE_ROOM1_MAP,
       'cement-house-indoor',
       SCENE_TILESET_ASSET_KEYS.CEMENT_HOUSE_TILESET,
       [1, 2, 3, 5, 6, 7, 8, 9, 10, 14, 17, 25, 26, 30, 33, 34, 35, 37, 38]
@@ -45,7 +45,7 @@ export class JMHouseRoom2Scene extends BaseWalkableScene {
       () => {
         this.scene.start(SCENE_KEYS.JM_HOUSE_SCENE, {
           x: 210,
-          y: 200,
+          y: 100,
           facing: DIRECTION.LEFT,
         });
       }

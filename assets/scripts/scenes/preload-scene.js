@@ -35,6 +35,10 @@ export class PreloadScene extends Phaser.Scene {
       `${jsonPath}/maps/houses/jm-house-tilemap.json`
     );
     this.load.tilemapTiledJSON(
+      SCENE_MAP_ASSET_KEYS.JM_HOUSE_ROOM1_MAP,
+      `${jsonPath}/maps/houses/jm-house-room1-tilemap.json`
+    );
+    this.load.tilemapTiledJSON(
       SCENE_MAP_ASSET_KEYS.JM_HOUSE_ROOM2_MAP,
       `${jsonPath}/maps/houses/jm-house-room2-tilemap.json`
     );
@@ -55,6 +59,6 @@ export class PreloadScene extends Phaser.Scene {
   }
 
   create() {
-    this.scene.start(SCENE_KEYS.JM_HOUSE_SCENE);
+    this.scene.start(SCENE_KEYS.JM_HOUSE_ROOM2_SCENE);
   }
 }

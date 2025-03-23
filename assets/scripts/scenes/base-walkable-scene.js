@@ -23,10 +23,19 @@ export class BaseWalkableScene extends Phaser.Scene {
    *
    * @param {number=} characterPositionX
    * @param {number=} characterPositionY
+   * @param {import('../common/direction.js').Direction} characterFaceDirection
    */
-  create(characterPositionX = null, characterPositionY = null) {
+  create(
+    characterPositionX = null,
+    characterPositionY = null,
+    characterFaceDirection = null
+  ) {
     this.character = new Character(this);
-    this.character.createCharacter(characterPositionX, characterPositionY);
+    this.character.createCharacter(
+      characterPositionX,
+      characterPositionY,
+      characterFaceDirection
+    );
     this.#cursorKeys = this.input.keyboard.createCursorKeys();
   }
 

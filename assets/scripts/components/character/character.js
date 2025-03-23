@@ -33,8 +33,9 @@ export class Character {
    *
    * @param {number=} x
    * @param {number=} y
+   * @param {import('../../common/direction.js').Direction=} facing
    */
-  createCharacter(x = null, y = null) {
+  createCharacter(x = null, y = null, facing = null) {
     if (x == null && y == null) {
       x = this.#scene.cameras.main.width / 2;
       y = this.#scene.cameras.main.height / 2;
@@ -50,6 +51,8 @@ export class Character {
     this.characterGameObject.body.setSize(20, 8); // A small rectangle for the feet
     this.characterGameObject.body.setOffset(6, 24); // Move it toward the bottom of the sprite
     this.characterGameObject.setDepth(10);
+
+    this.setFacing(facing);
   }
 
   /** @param {import("../../common/direction.js").Direction} direction */
@@ -88,69 +91,77 @@ export class Character {
   }
 
   #initAnimations() {
-    this.#scene.anims.create({
-      key: playerAnimations.RUN_FRONT,
-      frames: [
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 4 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 8 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 12 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 16 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 20 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 24 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 28 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 32 },
-      ],
-      frameRate: 10,
-      repeat: -1,
-    });
+    if (!this.#scene.anims.exists(playerAnimations.RUN_FRONT)) {
+      this.#scene.anims.create({
+        key: playerAnimations.RUN_FRONT,
+        frames: [
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 4 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 8 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 12 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 16 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 20 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 24 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 28 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 32 },
+        ],
+        frameRate: 10,
+        repeat: -1,
+      });
+    }
 
-    this.#scene.anims.create({
-      key: playerAnimations.RUN_TOP,
-      frames: [
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 5 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 9 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 13 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 17 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 21 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 25 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 29 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 33 },
-      ],
-      frameRate: 10,
-      repeat: -1,
-    });
+    if (!this.#scene.anims.exists(playerAnimations.RUN_TOP)) {
+      this.#scene.anims.create({
+        key: playerAnimations.RUN_TOP,
+        frames: [
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 5 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 9 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 13 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 17 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 21 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 25 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 29 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 33 },
+        ],
+        frameRate: 10,
+        repeat: -1,
+      });
+    }
 
-    this.#scene.anims.create({
-      key: playerAnimations.RUN_RIGHT,
-      frames: [
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 6 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 10 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 14 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 18 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 22 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 26 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 30 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 34 },
-      ],
-      frameRate: 10,
-      repeat: -1,
-    });
+    if (!this.#scene.anims.exists(playerAnimations.RUN_RIGHT)) {
+      this.#scene.anims.create({
+        key: playerAnimations.RUN_RIGHT,
+        frames: [
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 6 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 10 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 14 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 18 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 22 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 26 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 30 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 34 },
+        ],
+        frameRate: 10,
+        repeat: -1,
+      });
+    }
 
-    this.#scene.anims.create({
-      key: playerAnimations.RUN_LEFT,
-      frames: [
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 7 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 11 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 15 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 19 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 23 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 27 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 31 },
-        { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 35 },
-      ],
-      frameRate: 10,
-      repeat: -1,
-    });
+    if (!this.#scene.anims.exists(playerAnimations.RUN_LEFT)) {
+      this.#scene.anims.create({
+        key: playerAnimations.RUN_LEFT,
+        frames: [
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 7 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 11 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 15 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 19 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 23 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 27 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 31 },
+          { key: CHARACTER_ASSET_KEYS.MC_SHEET, frame: 35 },
+        ],
+        frameRate: 10,
+        repeat: -1,
+      });
+    }
   }
 
   #walkLeft() {
@@ -203,6 +214,30 @@ export class Character {
         break;
 
       default:
+        break;
+    }
+  }
+
+  /**
+   *
+   * @param {string} facing
+   */
+  setFacing(facing = null) {
+    switch (facing) {
+      case DIRECTION.DOWN:
+        this.characterGameObject.setFrame(0);
+        break;
+      case DIRECTION.LEFT:
+        this.characterGameObject.setFrame(3);
+        break;
+      case DIRECTION.RIGHT:
+        this.characterGameObject.setFrame(2);
+        break;
+      case DIRECTION.UP:
+        this.characterGameObject.setFrame(1);
+        break;
+      default:
+        this.characterGameObject.setFrame(0);
         break;
     }
   }

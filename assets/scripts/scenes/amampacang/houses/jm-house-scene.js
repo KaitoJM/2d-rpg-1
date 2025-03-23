@@ -5,6 +5,7 @@ import {
 } from '../../../assets/asset-keys.js';
 import { SCENE_KEYS } from './../../scene-keys.js';
 import { BaseWalkableScene } from '../../base-walkable-scene.js';
+import { DIRECTION } from '../../../common/direction.js';
 
 export class JMHouseScene extends BaseWalkableScene {
   /** @type {Phaser.Physics.Arcade.Sprite} */
@@ -31,8 +32,8 @@ export class JMHouseScene extends BaseWalkableScene {
   }
 
   create(data) {
-    const { x = null, y = null } = data || {};
-    super.create(x, y);
+    const { x = null, y = null, facing = null } = data || {};
+    super.create(x, y, facing);
 
     this.buildMap(
       SCENE_MAP_ASSET_KEYS.JM_HOUSE_MAP,
@@ -106,14 +107,22 @@ export class JMHouseScene extends BaseWalkableScene {
       this.character.characterGameObject,
       this.#doorRoom1,
       () => {
-        console.log('collide door room 1');
+        this.scene.start(SCENE_KEYS.JM_HOUSE_ROOM1_SCENE, {
+          x: 75,
+          y: 70,
+          facing: DIRECTION.RIGHT,
+        });
       }
     );
     this.physics.add.collider(
       this.character.characterGameObject,
       this.#doorRoom2,
       () => {
-        this.scene.start(SCENE_KEYS.JM_HOUSE_ROOM2_SCENE);
+        this.scene.start(SCENE_KEYS.JM_HOUSE_ROOM2_SCENE, {
+          x: 75,
+          y: 70,
+          facing: DIRECTION.RIGHT,
+        });
       }
     );
     this.physics.add.collider(
