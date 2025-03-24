@@ -63,8 +63,6 @@ export class JMHouseScene extends BaseWalkableScene {
 
   #createRoomObjects() {
     const character = this.character.characterGameObject;
-    this.#doorRoom1 = new DoorRight(this, 224, 64, character);
-    this.#doorRoom2 = new DoorRight(this, 224, 160, character);
     this.#doorOut1 = new DoorUp(this, 128, 32, character);
     this.#doorOut2 = new DoorLeft(this, 32, 160, character);
     this.#sofa1 = new SofaShort(this, 96, 45, character, true);
@@ -74,6 +72,20 @@ export class JMHouseScene extends BaseWalkableScene {
     this.#dinningTable = new TableWood(this, 96, 224, character, true);
     this.#tv = new TvFlatRight(this, 222, 110, character);
 
+    this.#doorRoom1 = new DoorRight(this, 224, 64, character, {
+      scene: SCENE_KEYS.JM_HOUSE_ROOM1_SCENE,
+      x: 55,
+      y: 78,
+      playerPosition: DIRECTION.RIGHT,
+    });
+
+    this.#doorRoom2 = new DoorRight(this, 224, 160, character, {
+      scene: SCENE_KEYS.JM_HOUSE_ROOM2_SCENE,
+      x: 55,
+      y: 78,
+      playerPosition: DIRECTION.RIGHT,
+    });
+
     this.#doorCR = this.physics.add
       .sprite(288, 256, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 9)
       .setOrigin(0);
@@ -81,28 +93,6 @@ export class JMHouseScene extends BaseWalkableScene {
     this.#doorCR.setImmovable(true);
 
     // Add collisions between the player and sofas
-    this.physics.add.collider(
-      this.character.characterGameObject,
-      this.#doorRoom1,
-      () => {
-        this.scene.start(SCENE_KEYS.JM_HOUSE_ROOM1_SCENE, {
-          x: 55,
-          y: 78,
-          facing: DIRECTION.RIGHT,
-        });
-      }
-    );
-    this.physics.add.collider(
-      this.character.characterGameObject,
-      this.#doorRoom2,
-      () => {
-        this.scene.start(SCENE_KEYS.JM_HOUSE_ROOM2_SCENE, {
-          x: 55,
-          y: 78,
-          facing: DIRECTION.RIGHT,
-        });
-      }
-    );
     this.physics.add.collider(
       this.character.characterGameObject,
       this.#doorOut1,

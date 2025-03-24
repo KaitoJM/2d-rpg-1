@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { SCENE_OBJECT_TILESET_ASSET_KEYS } from '../../../assets/asset-keys.js';
 import { Character } from '../../character/character.js';
 
@@ -21,8 +22,9 @@ export default class DoorRight extends Phaser.Physics.Arcade.Sprite {
    * @param {number} x
    * @param {number} y
    * @param {Phaser.Physics.Arcade.Sprite} character
+   * @param {import('../../../types/door-data.model.js').DoorData} data
    */
-  constructor(scene, x, y, character) {
+  constructor(scene, x, y, character, data = null) {
     super(scene, x, y, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 9);
 
     this.#scene = scene;
@@ -37,6 +39,10 @@ export default class DoorRight extends Phaser.Physics.Arcade.Sprite {
     this.#createExtraLimitReach();
 
     this.#scene.events.on('update', this.#checkDoorOverlap, this);
+
+    if (data) {
+      this.#setCollision(data);
+    }
 
     this.setOrigin(0);
     this.setImmovable(true);
@@ -82,5 +88,19 @@ export default class DoorRight extends Phaser.Physics.Arcade.Sprite {
     } else {
       this.#doorCover.setVisible(true);
     }
+  }
+
+  /**
+   *
+   * @param {import('../../../types/door-data.model.js').DoorData} data
+   */
+  #setCollision(data) {
+    this.#scene.physics.add.collider(this.#character, this, () => {
+      this.#scene.scene.start(data.scene, {
+        x: data.x,
+        y: data.y,
+        facing: data.playerPosition,
+      });
+    });
   }
 }
