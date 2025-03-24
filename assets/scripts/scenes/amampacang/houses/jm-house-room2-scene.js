@@ -6,6 +6,7 @@ import {
 import { SCENE_KEYS } from './../../scene-keys.js';
 import { BaseWalkableScene } from '../../base-walkable-scene.js';
 import { DIRECTION } from '../../../common/direction.js';
+import DoorLeft from '../../../components/objects/indoor/door-left.object.js';
 
 export class JMHouseRoom2Scene extends BaseWalkableScene {
   /** @type {Phaser.Physics.Arcade.Sprite} */
@@ -34,21 +35,15 @@ export class JMHouseRoom2Scene extends BaseWalkableScene {
   }
 
   #createRoomObjects() {
-    this.#doorOut = this.physics.add
-      .sprite(32, 64, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 3)
-      .setOrigin(0);
+    const character = this.character.characterGameObject;
+    this.#doorOut = new DoorLeft(this, 32, 64, character);
 
-    this.#doorOut.setImmovable(true);
-    this.physics.add.collider(
-      this.character.characterGameObject,
-      this.#doorOut,
-      () => {
-        this.scene.start(SCENE_KEYS.JM_HOUSE_SCENE, {
-          x: 230,
-          y: 170,
-          facing: DIRECTION.LEFT,
-        });
-      }
-    );
+    this.physics.add.collider(character, this.#doorOut, () => {
+      this.scene.start(SCENE_KEYS.JM_HOUSE_SCENE, {
+        x: 230,
+        y: 170,
+        facing: DIRECTION.LEFT,
+      });
+    });
   }
 }

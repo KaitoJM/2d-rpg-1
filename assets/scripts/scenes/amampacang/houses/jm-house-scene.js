@@ -7,6 +7,8 @@ import { SCENE_KEYS } from './../../scene-keys.js';
 import { BaseWalkableScene } from '../../base-walkable-scene.js';
 import { DIRECTION } from '../../../common/direction.js';
 import DoorRight from '../../../components/objects/indoor/door-right.object.js';
+import DoorLeft from '../../../components/objects/indoor/door-left.object.js';
+import DoorUp from '../../../components/objects/indoor/door-up.object.js';
 
 export class JMHouseScene extends BaseWalkableScene {
   /** @type {Phaser.Physics.Arcade.Sprite} */
@@ -62,6 +64,8 @@ export class JMHouseScene extends BaseWalkableScene {
     const character = this.character.characterGameObject;
     this.#doorRoom1 = new DoorRight(this, 224, 64, character);
     this.#doorRoom2 = new DoorRight(this, 224, 160, character);
+    this.#doorOut1 = new DoorUp(this, 128, 32, character);
+    this.#doorOut2 = new DoorLeft(this, 32, 160, character);
 
     this.#sofa1 = this.physics.add
       .sprite(96, 45, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 4)
@@ -81,18 +85,6 @@ export class JMHouseScene extends BaseWalkableScene {
     this.#longtable2 = this.physics.add
       .sprite(116, 126, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 12)
       .setOrigin(0);
-    // this.#doorRoom1 = this.physics.add
-    //   .sprite(224, 64, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 1)
-    //   .setOrigin(0);
-    // this.#doorRoom2 = this.physics.add
-    //   .sprite(224, 160, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 1)
-    //   .setOrigin(0);
-    this.#doorOut1 = this.physics.add
-      .sprite(128, 32, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 0)
-      .setOrigin(0);
-    this.#doorOut2 = this.physics.add
-      .sprite(32, 160, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 3)
-      .setOrigin(0);
     this.#doorCR = this.physics.add
       .sprite(288, 256, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 9)
       .setOrigin(0);
@@ -109,8 +101,6 @@ export class JMHouseScene extends BaseWalkableScene {
     this.#sofalonghalf2.setImmovable(true);
     this.#longtable1.setImmovable(true);
     this.#longtable2.setImmovable(true);
-    this.#doorOut1.setImmovable(true);
-    this.#doorOut2.setImmovable(true);
     this.#doorCR.setImmovable(true);
     this.#dinningTable.setImmovable(true);
 
@@ -145,8 +135,8 @@ export class JMHouseScene extends BaseWalkableScene {
       this.#doorRoom1,
       () => {
         this.scene.start(SCENE_KEYS.JM_HOUSE_ROOM1_SCENE, {
-          x: 75,
-          y: 70,
+          x: 55,
+          y: 78,
           facing: DIRECTION.RIGHT,
         });
       }
@@ -156,8 +146,8 @@ export class JMHouseScene extends BaseWalkableScene {
       this.#doorRoom2,
       () => {
         this.scene.start(SCENE_KEYS.JM_HOUSE_ROOM2_SCENE, {
-          x: 75,
-          y: 70,
+          x: 55,
+          y: 78,
           facing: DIRECTION.RIGHT,
         });
       }
