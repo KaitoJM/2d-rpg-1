@@ -9,6 +9,11 @@ import { DIRECTION } from '../../../common/direction.js';
 import DoorRight from '../../../components/objects/indoor/door-right.object.js';
 import DoorLeft from '../../../components/objects/indoor/door-left.object.js';
 import DoorUp from '../../../components/objects/indoor/door-up.object.js';
+import SofaShort from '../../../components/objects/indoor/sofa-short.object.js';
+import SofaLong from '../../../components/objects/indoor/sofa-long.object.js';
+import TableWoodLong from '../../../components/objects/indoor/table-wood-long.object.js';
+import TableWood from '../../../components/objects/indoor/table-wood.object.js';
+import TvFlatRight from '../../../components/objects/indoor/tvFlatRight.object.js';
 
 export class JMHouseScene extends BaseWalkableScene {
   /** @type {Phaser.Physics.Arcade.Sprite} */
@@ -16,13 +21,9 @@ export class JMHouseScene extends BaseWalkableScene {
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #sofa2;
   /** @type {Phaser.Physics.Arcade.Sprite} */
-  #sofalonghalf1;
+  #sofalong;
   /** @type {Phaser.Physics.Arcade.Sprite} */
-  #sofalonghalf2;
-  /** @type {Phaser.Physics.Arcade.Sprite} */
-  #longtable1;
-  /** @type {Phaser.Physics.Arcade.Sprite} */
-  #longtable2;
+  #longtable;
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #doorRoom1;
   /** @type {Phaser.Physics.Arcade.Sprite} */
@@ -66,70 +67,20 @@ export class JMHouseScene extends BaseWalkableScene {
     this.#doorRoom2 = new DoorRight(this, 224, 160, character);
     this.#doorOut1 = new DoorUp(this, 128, 32, character);
     this.#doorOut2 = new DoorLeft(this, 32, 160, character);
+    this.#sofa1 = new SofaShort(this, 96, 45, character, true);
+    this.#sofa2 = new SofaShort(this, 160, 45, character, true);
+    this.#sofalong = new SofaLong(this, 52, 84, character, true);
+    this.#longtable = new TableWoodLong(this, 116, 94, character, true);
+    this.#dinningTable = new TableWood(this, 96, 224, character, true);
+    this.#tv = new TvFlatRight(this, 222, 110, character);
 
-    this.#sofa1 = this.physics.add
-      .sprite(96, 45, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 4)
-      .setOrigin(0);
-    this.#sofa2 = this.physics.add
-      .sprite(160, 45, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 4)
-      .setOrigin(0);
-    this.#sofalonghalf1 = this.physics.add
-      .sprite(52, 84, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 5)
-      .setOrigin(0);
-    this.#sofalonghalf2 = this.physics.add
-      .sprite(52, 116, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 10)
-      .setOrigin(0);
-    this.#longtable1 = this.physics.add
-      .sprite(116, 94, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 7)
-      .setOrigin(0);
-    this.#longtable2 = this.physics.add
-      .sprite(116, 126, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 12)
-      .setOrigin(0);
     this.#doorCR = this.physics.add
       .sprite(288, 256, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 9)
       .setOrigin(0);
-    this.#tv = this.physics.add
-      .sprite(222, 110, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 8)
-      .setOrigin(0);
-    this.#dinningTable = this.physics.add
-      .sprite(96, 224, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 6)
-      .setOrigin(0);
 
-    this.#sofa1.setImmovable(true);
-    this.#sofa2.setImmovable(true);
-    this.#sofalonghalf1.setImmovable(true);
-    this.#sofalonghalf2.setImmovable(true);
-    this.#longtable1.setImmovable(true);
-    this.#longtable2.setImmovable(true);
     this.#doorCR.setImmovable(true);
-    this.#dinningTable.setImmovable(true);
 
     // Add collisions between the player and sofas
-    this.physics.add.collider(this.character.characterGameObject, this.#sofa1);
-    this.physics.add.collider(this.character.characterGameObject, this.#sofa2);
-    this.physics.add.collider(
-      this.character.characterGameObject,
-      this.#sofalonghalf1
-    );
-    this.#sofalonghalf1.body.setSize(32, 20);
-    this.#sofalonghalf1.body.setOffset(0, 10);
-    this.#sofalonghalf1.setDepth(11);
-
-    this.physics.add.collider(
-      this.character.characterGameObject,
-      this.#sofalonghalf2
-    );
-    this.physics.add.collider(
-      this.character.characterGameObject,
-      this.#longtable1
-    );
-    this.#longtable1.body.setSize(32, 23);
-    this.#longtable1.body.setOffset(0, 7);
-    this.#longtable1.setDepth(11);
-    this.physics.add.collider(
-      this.character.characterGameObject,
-      this.#longtable2
-    );
     this.physics.add.collider(
       this.character.characterGameObject,
       this.#doorRoom1,
@@ -176,10 +127,6 @@ export class JMHouseScene extends BaseWalkableScene {
           facing: DIRECTION.RIGHT,
         });
       }
-    );
-    this.physics.add.collider(
-      this.character.characterGameObject,
-      this.#dinningTable
     );
   }
 }
