@@ -6,7 +6,7 @@ import {
 import { SCENE_KEYS } from './../../scene-keys.js';
 import { BaseWalkableScene } from '../../base-walkable-scene.js';
 import { DIRECTION } from '../../../common/direction.js';
-import DoorRight from '../../../objects/indoor/door-right.object.js';
+import DoorRight from '../../../components/objects/indoor/door-right.object.js';
 
 export class JMHouseScene extends BaseWalkableScene {
   /** @type {Phaser.Physics.Arcade.Sprite} */

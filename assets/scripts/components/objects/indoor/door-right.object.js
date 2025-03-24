@@ -1,5 +1,5 @@
-import { SCENE_OBJECT_TILESET_ASSET_KEYS } from '../../assets/asset-keys.js';
-import { Character } from '../../components/character/character.js';
+import { SCENE_OBJECT_TILESET_ASSET_KEYS } from '../../../assets/asset-keys.js';
+import { Character } from '../../character/character.js';
 
 export default class DoorRight extends Phaser.Physics.Arcade.Sprite {
   /** @type {Phaser.Scene} */
