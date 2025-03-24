@@ -26,6 +26,15 @@ export default class DoorRight extends Phaser.Physics.Arcade.Sprite {
     this.#scene.physics.add.existing(this);
     this.#character = character;
 
+    //add extra collider form maximum reach
+    const extra = this.#scene.physics.add
+      .sprite(x, y, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 9)
+      .setOrigin(0);
+    extra.setImmovable(true);
+    this.#scene.physics.add.collider(this.#character, extra);
+    extra.setSize(32, 15);
+    extra.setOffset(0, 0);
+
     //Add door collidable door
     this.#doorCover = this.#scene.physics.add
       .sprite(x, y, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 1)
