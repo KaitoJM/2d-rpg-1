@@ -8,8 +8,12 @@ export default class DoorRight extends Phaser.Physics.Arcade.Sprite {
   #character;
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #doorCover;
-  /** @type {boolean} */
-  #isOpen;
+  /** @type {Phaser.Physics.Arcade.Sprite} */
+  #extraLimitReach;
+  /** @type {number} */
+  #positionX;
+  /** @type {number} */
+  #positionY;
 
   /**
    *
@@ -26,28 +30,46 @@ export default class DoorRight extends Phaser.Physics.Arcade.Sprite {
     this.#scene.physics.add.existing(this);
     this.#character = character;
 
-    //add extra collider form maximum reach
-    const extra = this.#scene.physics.add
-      .sprite(x, y, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 9)
-      .setOrigin(0);
-    extra.setImmovable(true);
-    this.#scene.physics.add.collider(this.#character, extra);
-    extra.setSize(32, 15);
-    extra.setOffset(0, 0);
+    this.#positionX = x;
+    this.#positionY = y;
 
-    //Add door collidable door
-    this.#doorCover = this.#scene.physics.add
-      .sprite(x, y, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 1)
-      .setOrigin(0);
-    this.#doorCover.setImmovable(true);
-    this.#createDoorCoverCollider();
+    this.#createDoor();
+    this.#createExtraLimitReach();
+
     this.#scene.events.on('update', this.#checkDoorOverlap, this);
 
     this.setOrigin(0);
-    this.#isOpen = false;
     this.setImmovable(true);
     this.setSize(10, 32);
     this.setOffset(22, 0);
+  }
+
+  #createDoor() {
+    this.#doorCover = this.#scene.physics.add
+      .sprite(
+        this.#positionX,
+        this.#positionY,
+        SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE,
+        1
+      )
+      .setOrigin(0);
+    this.#doorCover.setImmovable(true);
+    this.#createDoorCoverCollider();
+  }
+
+  #createExtraLimitReach() {
+    this.#extraLimitReach = this.#scene.physics.add
+      .sprite(
+        this.#positionX,
+        this.#positionY,
+        SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE,
+        9
+      )
+      .setOrigin(0);
+    this.#extraLimitReach.setImmovable(true);
+    this.#scene.physics.add.collider(this.#character, this.#extraLimitReach);
+    this.#extraLimitReach.setSize(32, 15);
+    this.#extraLimitReach.setOffset(0, 0);
   }
 
   #createDoorCoverCollider() {

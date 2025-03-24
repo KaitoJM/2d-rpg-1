@@ -8,8 +8,12 @@ export default class DoorUp extends Phaser.Physics.Arcade.Sprite {
   #character;
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #doorCover;
-  /** @type {boolean} */
-  #isOpen;
+  /** @type {Phaser.GameObjects.Sprite} */
+  #topLayerShadow;
+  /** @type {number} */
+  #positionX;
+  /** @type {number} */
+  #positionY;
 
   /**
    *
@@ -26,19 +30,44 @@ export default class DoorUp extends Phaser.Physics.Arcade.Sprite {
     this.#scene.physics.add.existing(this);
     this.#character = character;
 
-    //Add door collidable door
-    this.#doorCover = this.#scene.physics.add
-      .sprite(x, y, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 0)
-      .setOrigin(0);
-    this.#doorCover.setImmovable(true);
-    this.#createDoorCoverCollider();
+    this.#positionX = x;
+    this.#positionY = y;
+
+    this.#createDoor();
+    this.#createTopLayer();
+
     this.#scene.events.on('update', this.#checkDoorOverlap, this);
 
     this.setOrigin(0);
-    this.#isOpen = false;
     this.setImmovable(true);
-    this.setSize(32, 10);
+    this.setSize(32, 25);
     this.setOffset(0, 0);
+  }
+
+  #createDoor() {
+    this.#doorCover = this.#scene.physics.add
+      .sprite(
+        this.#positionX,
+        this.#positionY,
+        SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE,
+        0
+      )
+      .setOrigin(0);
+    this.#doorCover.setImmovable(true);
+    this.#createDoorCoverCollider();
+  }
+
+  #createTopLayer() {
+    this.#topLayerShadow = this.#scene.add
+      .sprite(
+        this.#positionX,
+        this.#positionY,
+        SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE,
+        15
+      )
+      .setOrigin(0);
+
+    this.#topLayerShadow.setDepth(this.#character.depth + 1);
   }
 
   #createDoorCoverCollider() {
@@ -48,8 +77,10 @@ export default class DoorUp extends Phaser.Physics.Arcade.Sprite {
   #checkDoorOverlap() {
     if (this.#scene.physics.world.overlap(this.#character, this.#doorCover)) {
       this.#doorCover.setVisible(false);
+      this.#topLayerShadow.setVisible(true);
     } else {
       this.#doorCover.setVisible(true);
+      this.#topLayerShadow.setVisible(false);
     }
   }
 }
