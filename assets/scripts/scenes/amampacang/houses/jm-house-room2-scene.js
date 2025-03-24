@@ -45,7 +45,7 @@ export class JMHouseRoom2Scene extends BaseWalkableScene {
       () => {
         this.scene.start(SCENE_KEYS.JM_HOUSE_SCENE, {
           x: 210,
-          y: 200,
+          y: 168,
           facing: DIRECTION.LEFT,
         });
       }

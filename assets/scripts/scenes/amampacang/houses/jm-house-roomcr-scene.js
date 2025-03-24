@@ -35,7 +35,7 @@ export class JMHouseRoomCRScene extends BaseWalkableScene {
 
   #createRoomObjects() {
     this.#doorOut = this.physics.add
-      .sprite(32, 64, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 6)
+      .sprite(32, 64, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 9)
       .setOrigin(0);
 
     this.#doorOut.setImmovable(true);
