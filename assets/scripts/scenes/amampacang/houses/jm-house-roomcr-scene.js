@@ -6,10 +6,14 @@ import {
 import { SCENE_KEYS } from './../../scene-keys.js';
 import { BaseWalkableScene } from '../../base-walkable-scene.js';
 import { DIRECTION } from '../../../common/direction.js';
+import Toilet from '../../../components/objects/indoor/toilet.object.js';
+import WashingMachine from '../../../components/objects/indoor/washing-machine.object.js';
 
 export class JMHouseRoomCRScene extends BaseWalkableScene {
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #doorOut;
+  /** @type {Phaser.Physics.Arcade.Sprite} */
+  #toilet;
 
   constructor() {
     super(SCENE_KEYS.JM_HOUSE_ROOMCR_SCENE, 288, 224);
@@ -34,6 +38,9 @@ export class JMHouseRoomCRScene extends BaseWalkableScene {
   }
 
   #createRoomObjects() {
+    const character = this.character.characterGameObject;
+    this.#toilet = new Toilet(this, 96, 64, character, true);
+
     this.#doorOut = this.physics.add
       .sprite(32, 64, SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE, 9)
       .setOrigin(0);

@@ -14,6 +14,7 @@ import SofaLong from '../../../components/objects/indoor/sofa-long.object.js';
 import TableWoodLong from '../../../components/objects/indoor/table-wood-long.object.js';
 import TableWood from '../../../components/objects/indoor/table-wood.object.js';
 import TvFlatRight from '../../../components/objects/indoor/tvFlatRight.object.js';
+import Refridgerator from '../../../components/objects/indoor/ref.object.js';
 
 export class JMHouseScene extends BaseWalkableScene {
   /** @type {Phaser.Physics.Arcade.Sprite} */
@@ -38,6 +39,8 @@ export class JMHouseScene extends BaseWalkableScene {
   #tv;
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #dinningTable;
+  /** @type {Phaser.Physics.Arcade.Sprite} */
+  #fridge;
 
   constructor() {
     super(SCENE_KEYS.JM_HOUSE_SCENE, 320, 352);
@@ -71,6 +74,7 @@ export class JMHouseScene extends BaseWalkableScene {
     this.#longtable = new TableWoodLong(this, 116, 94, character, true);
     this.#dinningTable = new TableWood(this, 96, 224, character, true);
     this.#tv = new TvFlatRight(this, 222, 110, character);
+    this.#fridge = new Refridgerator(this, 210, 193, character, true);
 
     this.#doorRoom1 = new DoorRight(this, 224, 64, character, {
       scene: SCENE_KEYS.JM_HOUSE_ROOM1_SCENE,

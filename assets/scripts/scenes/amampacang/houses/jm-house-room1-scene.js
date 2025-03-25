@@ -8,12 +8,18 @@ import { BaseWalkableScene } from '../../base-walkable-scene.js';
 import { DIRECTION } from '../../../common/direction.js';
 import DoorLeft from '../../../components/objects/indoor/door-left.object.js';
 import Bed from '../../../components/objects/indoor/bed.object.js';
+import Cabinet from '../../../components/objects/indoor/cabinet.object.js';
+import Desk from '../../../components/objects/indoor/desk.object.js';
 
 export class JMHouseRoom1Scene extends BaseWalkableScene {
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #doorOut;
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #bed;
+  /** @type {Phaser.Physics.Arcade.Sprite} */
+  #cabinet;
+  /** @type {Phaser.Physics.Arcade.Sprite} */
+  #desk;
 
   constructor() {
     super(SCENE_KEYS.JM_HOUSE_ROOM1_SCENE, 288, 256);
@@ -47,5 +53,7 @@ export class JMHouseRoom1Scene extends BaseWalkableScene {
     });
 
     this.#bed = new Bed(this, 128, 52, character, true);
+    this.#cabinet = new Cabinet(this, 45, 128, character, true);
+    this.#desk = new Desk(this, 192, 52, character, true);
   }
 }
