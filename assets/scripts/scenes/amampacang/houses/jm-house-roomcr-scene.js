@@ -8,11 +8,12 @@ import { BaseWalkableScene } from '../../base-walkable-scene.js';
 import { DIRECTION } from '../../../common/direction.js';
 import Toilet from '../../../components/objects/indoor/toilet.object.js';
 import WashingMachine from '../../../components/objects/indoor/washing-machine.object.js';
+import SpeechBubble from '../../../ui/speech-bubble.ui.js';
 
 export class JMHouseRoomCRScene extends BaseWalkableScene {
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #doorOut;
-  /** @type {Phaser.Physics.Arcade.Sprite} */
+  /** @type {Toilet} */
   #toilet;
 
   constructor() {
@@ -35,6 +36,18 @@ export class JMHouseRoomCRScene extends BaseWalkableScene {
 
   update() {
     super.update();
+
+    const spaceKey = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.SPACE
+    );
+
+    if (Phaser.Input.Keyboard.JustDown(spaceKey)) {
+      const character = this.character.characterGameObject;
+      if (this.physics.world.collide(character, this.#toilet.overlapper)) {
+        this.speechBubble = new SpeechBubble(this);
+        this.speechBubble.displayText('Kaon ka tae?', 50);
+      }
+    }
   }
 
   #createRoomObjects() {

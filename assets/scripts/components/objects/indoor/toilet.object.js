@@ -10,6 +10,8 @@ export default class Toilet extends Phaser.Physics.Arcade.Sprite {
   #positionX;
   /** @type {number} */
   #positionY;
+  /** @type {Phaser.Physics.Arcade.Sprite} */
+  overlapper;
 
   /**
    *
@@ -30,15 +32,35 @@ export default class Toilet extends Phaser.Physics.Arcade.Sprite {
     this.#positionX = x;
     this.#positionY = y;
 
+    this.#setOverlap();
+
     if (collide) {
       this.#setCollider();
     }
 
     this.setOrigin(0);
+    this.setSize(28, 25);
+    this.setOffset(3, 3);
     this.setImmovable(true);
   }
 
   #setCollider() {
     this.#scene.physics.add.collider(this.#character, this);
+  }
+
+  #setOverlap() {
+    this.overlapper = this.#scene.physics.add
+      .sprite(
+        this.#positionX,
+        this.#positionY,
+        SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE,
+        9
+      )
+      .setOrigin(0);
+
+    this.overlapper.setSize(40, 40);
+    this.overlapper.setOffset(-4, -4);
+
+    this.#scene.physics.add.overlap(this.overlapper, this);
   }
 }
