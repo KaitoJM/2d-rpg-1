@@ -4,6 +4,7 @@ import {
   SCENE_MAP_ASSET_KEYS,
   SCENE_OBJECT_TILESET_ASSET_KEYS,
   SCENE_TILESET_ASSET_KEYS,
+  UI_ASSET_KEYS,
 } from '../assets/asset-keys.js';
 import Phaser from '../lib/phaser.js';
 import { SCENE_KEYS } from './scene-keys.js';
@@ -60,6 +61,9 @@ export class PreloadScene extends Phaser.Scene {
         frameHeight: 32,
       }
     );
+
+    //load UI
+    this.load.image(UI_ASSET_KEYS.CURSOR, `${imagePath}/ui/cursor.png`);
   }
 
   create() {

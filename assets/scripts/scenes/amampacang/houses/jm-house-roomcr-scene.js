@@ -80,6 +80,7 @@ export class JMHouseRoomCRScene extends BaseWalkableScene {
       {
         type: 'QUESTION',
         text: 'Kaon ka tae?',
+        question_variable: 'kaon_tae',
         options: [
           {
             text: 'Yes Please',
@@ -100,11 +101,11 @@ export class JMHouseRoomCRScene extends BaseWalkableScene {
             ],
           },
           {
-            text: 'Nevurr',
+            text: 'Nevurr!',
             flow: [
               {
                 type: 'MESSAGE',
-                text: 'Kulira kaarte!',
+                text: 'Kalamri ka!',
               },
             ],
           },

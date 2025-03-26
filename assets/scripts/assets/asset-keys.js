@@ -21,3 +21,7 @@ export const SCENE_MAP_ASSET_KEYS = Object.freeze({
 export const SCENE_OBJECT_TILESET_ASSET_KEYS = Object.freeze({
   INDOOR_FURNITURE: 'INDOOR_FURNITURE',
 });
+
+export const UI_ASSET_KEYS = Object.freeze({
+  CURSOR: 'CURSOR',
+});
