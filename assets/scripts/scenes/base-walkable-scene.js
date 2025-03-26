@@ -92,11 +92,18 @@ export class BaseWalkableScene extends Phaser.Scene {
    *
    * @param {Phaser.Scene} scene
    * @param {import('../types/chat-flow.model.js').ChatFlowItem[]} messageFlow
+   * @param {(data?: any) => void} [callback]
    */
-  initChat(scene, messageFlow) {
+  initChat(scene, messageFlow, callback) {
     this.scene.launch(SCENE_KEYS.CHAT_BUBBLE_SCENE, {
       currentScene: scene,
       messageFlow: messageFlow,
     });
+
+    this.scene
+      .get(SCENE_KEYS.CHAT_BUBBLE_SCENE)
+      .events.once('chatEnd', (data) => {
+        if (callback) callback(data);
+      });
   }
 }

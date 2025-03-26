@@ -4,7 +4,8 @@ export interface AnswerOption {
 }
 
 export interface ChatFlowItem {
-  type: 'MESSAGE' | 'ANSWER';
+  type: 'MESSAGE' | 'QUESTION';
   text: string;
   options?: AnswerOption[];
+  question_variable?: string;
 }

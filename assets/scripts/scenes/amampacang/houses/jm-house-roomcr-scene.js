@@ -46,7 +46,9 @@ export class JMHouseRoomCRScene extends BaseWalkableScene {
     if (Phaser.Input.Keyboard.JustDown(spaceKey)) {
       const character = this.character.characterGameObject;
       if (this.physics.world.collide(character, this.#toilet.overlapper)) {
-        this.initChat(this, this.#toiletInteractFlow);
+        this.initChat(this, this.#toiletInteractFlow, (data) => {
+          console.log('test', data);
+        });
       }
     }
   }
@@ -76,11 +78,11 @@ export class JMHouseRoomCRScene extends BaseWalkableScene {
   #initToiletInteractionFlow() {
     this.#toiletInteractFlow = [
       {
-        type: 'ANSWER',
+        type: 'QUESTION',
         text: 'Kaon ka tae?',
         options: [
           {
-            text: 'Oo',
+            text: 'Yes Please',
             flow: [
               {
                 type: 'MESSAGE',
@@ -90,6 +92,15 @@ export class JMHouseRoomCRScene extends BaseWalkableScene {
           },
           {
             text: 'Yucks!',
+            flow: [
+              {
+                type: 'MESSAGE',
+                text: 'Kulira kaarte!',
+              },
+            ],
+          },
+          {
+            text: 'Nevurr',
             flow: [
               {
                 type: 'MESSAGE',
