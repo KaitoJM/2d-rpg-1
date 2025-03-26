@@ -1,5 +1,6 @@
 import { DIRECTION } from '../common/direction.js';
 import { Character } from '../components/character/character.js';
+import { SCENE_KEYS } from './scene-keys.js';
 
 export class BaseWalkableScene extends Phaser.Scene {
   /** @type {Character} */
@@ -85,5 +86,17 @@ export class BaseWalkableScene extends Phaser.Scene {
 
     const camera = this.cameras.main;
     camera.setBounds(0, 0, this.#mapWidth, this.#mapHeight);
+  }
+
+  /**
+   *
+   * @param {Phaser.Scene} scene
+   * @param {import('../types/chat-flow.model.js').ChatFlowItem[]} messageFlow
+   */
+  initChat(scene, messageFlow) {
+    this.scene.launch(SCENE_KEYS.CHAT_BUBBLE_SCENE, {
+      currentScene: scene,
+      messageFlow: messageFlow,
+    });
   }
 }

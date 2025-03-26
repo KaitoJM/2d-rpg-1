@@ -8,13 +8,14 @@ import { BaseWalkableScene } from '../../base-walkable-scene.js';
 import { DIRECTION } from '../../../common/direction.js';
 import Toilet from '../../../components/objects/indoor/toilet.object.js';
 import WashingMachine from '../../../components/objects/indoor/washing-machine.object.js';
-import SpeechBubble from '../../../ui/speech-bubble.ui.js';
 
 export class JMHouseRoomCRScene extends BaseWalkableScene {
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #doorOut;
   /** @type {Toilet} */
   #toilet;
+  /** @type {import('../../../types/chat-flow.model.js').ChatFlowItem[]} */
+  #toiletInteractFlow;
 
   constructor() {
     super(SCENE_KEYS.JM_HOUSE_ROOMCR_SCENE, 288, 224);
@@ -32,6 +33,7 @@ export class JMHouseRoomCRScene extends BaseWalkableScene {
     );
 
     this.#createRoomObjects();
+    this.#initToiletInteractionFlow();
   }
 
   update() {
@@ -44,8 +46,7 @@ export class JMHouseRoomCRScene extends BaseWalkableScene {
     if (Phaser.Input.Keyboard.JustDown(spaceKey)) {
       const character = this.character.characterGameObject;
       if (this.physics.world.collide(character, this.#toilet.overlapper)) {
-        this.speechBubble = new SpeechBubble(this);
-        this.speechBubble.displayText('Kaon ka tae?', 50);
+        this.initChat(this, this.#toiletInteractFlow);
       }
     }
   }
@@ -70,5 +71,34 @@ export class JMHouseRoomCRScene extends BaseWalkableScene {
         });
       }
     );
+  }
+
+  #initToiletInteractionFlow() {
+    this.#toiletInteractFlow = [
+      {
+        type: 'ANSWER',
+        text: 'Kaon ka tae?',
+        options: [
+          {
+            text: 'Oo',
+            flow: [
+              {
+                type: 'MESSAGE',
+                text: 'Sige hakuta tanan!',
+              },
+            ],
+          },
+          {
+            text: 'Yucks!',
+            flow: [
+              {
+                type: 'MESSAGE',
+                text: 'Kulira kaarte!',
+              },
+            ],
+          },
+        ],
+      },
+    ];
   }
 }
