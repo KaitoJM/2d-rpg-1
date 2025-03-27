@@ -13,10 +13,14 @@ import Desk from '../../../components/objects/indoor/desk.object.js';
 export class JMHouseRoom2Scene extends BaseWalkableScene {
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #doorOut;
-  /** @type {Phaser.Physics.Arcade.Sprite} */
+  /** @type {BedSingle} */
   #bed;
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #desk;
+  /** @type {Phaser.Physics.Arcade.Sprite} */
+  #character;
+  /** @type {import('../../../types/chat-flow.model.js').ChatFlowItem[]} */
+  #bedFlow;
 
   constructor() {
     super(SCENE_KEYS.JM_HOUSE_ROOM2_SCENE, 288, 224);
@@ -33,11 +37,33 @@ export class JMHouseRoom2Scene extends BaseWalkableScene {
       [1, 2, 3, 5, 6, 7, 8, 9, 10, 14, 17, 25, 26, 30, 33, 34, 35, 37, 38]
     );
 
+    this.#bedFlow = [
+      {
+        type: 'MESSAGE',
+        text: 'There is no time to sleep now.',
+      },
+      {
+        type: 'MESSAGE',
+        text: 'Lets do some adventure!!',
+      },
+    ];
+
     this.#createRoomObjects();
   }
 
   update() {
     super.update();
+    const spaceKey = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.SPACE
+    );
+
+    if (Phaser.Input.Keyboard.JustDown(spaceKey)) {
+      const character = this.character.characterGameObject;
+
+      if (this.physics.world.overlap(character, this.#bed.interactionArea)) {
+        this.initChat(this, this.#bedFlow);
+      }
+    }
   }
 
   #createRoomObjects() {

@@ -33,6 +33,8 @@ export class ChatBubbleScene extends Phaser.Scene {
   shown;
   /** @type {boolean} */
   isSelecting;
+  /** @type {boolean} */
+  isComposingMessage;
 
   constructor() {
     super({
@@ -47,10 +49,12 @@ export class ChatBubbleScene extends Phaser.Scene {
     this.#answers = [];
     this.#returnData = null;
     this.isSelecting = false;
+    this.isComposingMessage = false;
 
     this.setup();
 
     if (this.#messageFlow.length) {
+      this.isComposingMessage = true;
       this.displayText(this.#messageFlow[0]);
     } else {
       this.destroy();
@@ -66,34 +70,37 @@ export class ChatBubbleScene extends Phaser.Scene {
       Phaser.Input.Keyboard.KeyCodes.SHIFT
     );
 
-    if (
-      Phaser.Input.Keyboard.JustDown(spaceKey) ||
-      Phaser.Input.Keyboard.JustDown(shiftKey)
-    ) {
-      //check previous item if a question
+    if (!this.isComposingMessage) {
       if (
-        typeof this.#messageFlow[this.#messageFlowCurrentIndex] !==
-          'undefined' &&
-        this.#messageFlow[this.#messageFlowCurrentIndex].type == 'QUESTION'
+        Phaser.Input.Keyboard.JustDown(spaceKey) ||
+        Phaser.Input.Keyboard.JustDown(shiftKey)
       ) {
-        this.#messageFlow =
-          this.#messageFlow[this.#messageFlowCurrentIndex].options[
-            this.#answerCursorSelectedOption
-          ].flow;
-        this.#messageFlowCurrentIndex = 0;
-        this.#destroyAnswerContainer();
-      } else {
-        this.#messageFlowCurrentIndex++;
-      }
+        this.isComposingMessage = true;
+        //check previous item if a question
+        if (
+          typeof this.#messageFlow[this.#messageFlowCurrentIndex] !==
+            'undefined' &&
+          this.#messageFlow[this.#messageFlowCurrentIndex].type == 'QUESTION'
+        ) {
+          this.#messageFlow =
+            this.#messageFlow[this.#messageFlowCurrentIndex].options[
+              this.#answerCursorSelectedOption
+            ].flow;
+          this.#messageFlowCurrentIndex = 0;
+          this.#destroyAnswerContainer();
+        } else {
+          this.#messageFlowCurrentIndex++;
+        }
 
-      if (
-        typeof this.#messageFlow[this.#messageFlowCurrentIndex] == 'undefined'
-      ) {
-        this.destroy();
-      } else {
-        const current_flow_item =
-          this.#messageFlow[this.#messageFlowCurrentIndex];
-        this.displayText(current_flow_item);
+        if (
+          typeof this.#messageFlow[this.#messageFlowCurrentIndex] == 'undefined'
+        ) {
+          this.destroy();
+        } else {
+          const current_flow_item =
+            this.#messageFlow[this.#messageFlowCurrentIndex];
+          this.displayText(current_flow_item);
+        }
       }
     }
 
@@ -144,6 +151,7 @@ export class ChatBubbleScene extends Phaser.Scene {
         this.#text.setText(this.#text.text + flowItem.text[i]);
         i++;
         if (i > flowItem.text.length - 1) {
+          this.isComposingMessage = false;
           if (flowItem.type == 'QUESTION') {
             this.#createAnswerContainer(flowItem.options);
           }
