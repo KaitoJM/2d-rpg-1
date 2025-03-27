@@ -45,7 +45,7 @@ export class JMHouseRoomCRScene extends BaseWalkableScene {
 
     if (Phaser.Input.Keyboard.JustDown(spaceKey)) {
       const character = this.character.characterGameObject;
-      if (this.physics.world.collide(character, this.#toilet.overlapper)) {
+      if (this.physics.world.collide(character, this.#toilet.interactionArea)) {
         this.initChat(this, this.#toiletInteractFlow, (data) => {
           console.log('test', data);
         });
