@@ -15,12 +15,14 @@ export class JMHouseRoom2Scene extends BaseWalkableScene {
   #doorOut;
   /** @type {BedSingle} */
   #bed;
-  /** @type {Phaser.Physics.Arcade.Sprite} */
+  /** @type {Desk} */
   #desk;
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #character;
   /** @type {import('../../../types/chat-flow.model.js').ChatFlowItem[]} */
   #bedFlow;
+  /** @type {import('../../../types/chat-flow.model.js').ChatFlowItem[]} */
+  #deskFlow;
 
   constructor() {
     super(SCENE_KEYS.JM_HOUSE_ROOM2_SCENE, 288, 224);
@@ -48,6 +50,17 @@ export class JMHouseRoom2Scene extends BaseWalkableScene {
       },
     ];
 
+    this.#deskFlow = [
+      {
+        type: 'MESSAGE',
+        text: "It's a macbook pro with M1 chip!",
+      },
+      {
+        type: 'MESSAGE',
+        text: 'I think I can stream a video gameplay with this setup.',
+      },
+    ];
+
     this.#createRoomObjects();
   }
 
@@ -62,6 +75,10 @@ export class JMHouseRoom2Scene extends BaseWalkableScene {
 
       if (this.physics.world.overlap(character, this.#bed.interactionArea)) {
         this.initChat(this, this.#bedFlow);
+      }
+
+      if (this.physics.world.overlap(character, this.#desk.interactionArea)) {
+        this.initChat(this, this.#deskFlow);
       }
     }
   }

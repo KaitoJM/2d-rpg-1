@@ -83,8 +83,8 @@ export default class BedSingle extends Phaser.Physics.Arcade.Sprite {
       )
       .setOrigin(0);
 
-    this.interactionArea.setSize(50, 70);
-    this.interactionArea.setOffset(-8, 2);
+    this.interactionArea.setSize(42, 65);
+    this.interactionArea.setOffset(-5, 5);
     this.interactionArea.setImmovable(true);
     this.#scene.physics.add.overlap(this.interactionArea, this);
   }

@@ -10,6 +10,8 @@ export default class Desk extends Phaser.Physics.Arcade.Sprite {
   #positionX;
   /** @type {number} */
   #positionY;
+  /** @type {Phaser.Physics.Arcade.Sprite} */
+  #interactionArea;
 
   /**
    *
@@ -30,6 +32,8 @@ export default class Desk extends Phaser.Physics.Arcade.Sprite {
     this.#positionX = x;
     this.#positionY = y;
 
+    this.#setOverlap();
+
     if (collide) {
       this.#setCollider();
     }
@@ -40,5 +44,20 @@ export default class Desk extends Phaser.Physics.Arcade.Sprite {
 
   #setCollider() {
     this.#scene.physics.add.collider(this.#character, this);
+  }
+
+  #setOverlap() {
+    this.interactionArea = this.#scene.physics.add
+      .sprite(
+        this.#positionX,
+        this.#positionY,
+        SCENE_OBJECT_TILESET_ASSET_KEYS.INDOOR_FURNITURE,
+        9
+      )
+      .setOrigin(0);
+
+    this.interactionArea.setSize(42, 42);
+    this.interactionArea.setImmovable(true);
+    this.#scene.physics.add.overlap(this.interactionArea, this);
   }
 }
