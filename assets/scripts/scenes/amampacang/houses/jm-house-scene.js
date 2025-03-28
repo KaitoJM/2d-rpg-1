@@ -35,12 +35,14 @@ export class JMHouseScene extends BaseWalkableScene {
   #doorOut2;
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #doorCR;
-  /** @type {Phaser.Physics.Arcade.Sprite} */
+  /** @type {TvFlatRight} */
   #tv;
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #dinningTable;
   /** @type {Phaser.Physics.Arcade.Sprite} */
   #fridge;
+  /** @type {import('../../../types/chat-flow.model.js').ChatFlowItem[]} */
+  #tvFlow;
 
   constructor() {
     super(SCENE_KEYS.JM_HOUSE_SCENE, 320, 352);
@@ -57,11 +59,30 @@ export class JMHouseScene extends BaseWalkableScene {
       [1, 2, 3, 5, 6, 7, 8, 9, 10, 14, 17, 25, 26, 30, 33, 34, 35, 37, 38]
     );
 
+    this.#tvFlow = [
+      {
+        type: 'MESSAGE',
+        text: "It's an LG flat screen TV",
+      },
+    ];
+
     this.#createRoomObjects();
   }
 
   update() {
     super.update();
+
+    const spaceKey = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.SPACE
+    );
+
+    if (Phaser.Input.Keyboard.JustDown(spaceKey)) {
+      const character = this.character.characterGameObject;
+
+      if (this.physics.world.overlap(character, this.#tv.interactionArea)) {
+        this.initChat(this, this.#tvFlow);
+      }
+    }
   }
 
   #createRoomObjects() {

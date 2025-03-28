@@ -23,7 +23,7 @@ const game = new Phaser.Game({
     default: 'arcade', // ✅ Ensure physics is enabled!
     arcade: {
       gravity: { y: 0, x: 0 },
-      debug: true,
+      debug: false,
     },
   },
   scene: [PreloadScene],
